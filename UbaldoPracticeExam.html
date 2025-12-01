@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bagsakan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: 95vh;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                max-height: 100vh;
+                height: 100vh;
+                border-radius: 0;
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+        }
+
+        .progress-container {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #4CAF50;
+            height: 100%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .stats {
+                font-size: 12px;
+            }
+        }
+
+        .start-screen {
+            display: none;
+            text-align: center;
+            padding: 60px 40px;
+            flex: 1;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .start-screen.active {
+            display: flex;
+        }
+
+        .start-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .start-title {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .start-description {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .shuffle-option {
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .shuffle-option:hover {
+            background: #e8e8e8;
+            border-color: #667eea;
+        }
+
+        .shuffle-option.selected {
+            background: #e8e8ff;
+            border-color: #667eea;
+        }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .btn-start {
+            background: #667eea;
+            color: white;
+            padding: 15px 50px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .btn-start:hover {
+            background: #5568d3;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .start-screen {
+                padding: 30px 20px;
+            }
+
+            .start-icon {
+                font-size: 60px;
+            }
+
+            .start-title {
+                font-size: 24px;
+            }
+
+            .start-description {
+                font-size: 14px;
+            }
+
+            .shuffle-option {
+                padding: 15px;
+            }
+
+            .btn-start {
+                padding: 12px 40px;
+                font-size: 16px;
+            }
+        }
+
+        .quiz-content {
+            padding: 40px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-content {
+                padding: 20px 15px;
+                font-size: 14px;
+            }
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .question-text {
+                font-size: 15px;
+                margin-bottom: 20px;
+            }
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .choices {
+                gap: 10px;
+            }
+        }
+
+        .choice {
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .choice {
+                padding: 12px;
+            }
+        }
+
+        .choice:hover:not(.disabled) {
+            background: #e8e8e8;
+            transform: translateX(5px);
+        }
+
+        .choice-letter {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .choice-letter {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+                margin-right: 10px;
+            }
+        }
+
+        .choice-text {
+            flex: 1;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .choice-text {
+                font-size: 13px;
+            }
+        }
+
+        .choice.correct {
+            background: #d4edda;
+            border-color: #4CAF50;
+        }
+
+        .choice.correct .choice-letter {
+            background: #4CAF50;
+        }
+
+        .choice.wrong {
+            background: #f8d7da;
+            border-color: #f44336;
+        }
+
+        .choice.wrong .choice-letter {
+            background: #f44336;
+        }
+
+        .choice.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .feedback.wrong {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        @media (max-width: 768px) {
+            .feedback {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            padding: 30px 40px;
+            background: #f9f9f9;
+        }
+
+        @media (max-width: 768px) {
+            .navigation {
+                padding: 15px 20px;
+            }
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+        .btn-prev {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-prev:hover:not(:disabled) {
+            background: #5a6268;
+        }
+
+        .btn-next {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-next:hover:not(:disabled) {
+            background: #5568d3;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .result-screen {
+            display: none;
+            text-align: center;
+            padding: 60px 40px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .result-screen.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .result-screen {
+                padding: 30px 20px;
+            }
+        }
+
+        .result-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .result-icon {
+                font-size: 60px;
+            }
+        }
+
+        .result-score {
+            font-size: 48px;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .result-score {
+                font-size: 36px;
+            }
+        }
+
+        .result-message {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .result-message {
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
+        }
+
+        .result-details {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .result-details {
+                padding: 15px;
+                font-size: 14px;
+            }
+        }
+
+        .result-details p {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .result-details p {
+                font-size: 14px;
+                margin-bottom: 8px;
+            }
+        }
+
+        .btn-restart {
+            background: #667eea;
+            color: white;
+            padding: 15px 40px;
+            font-size: 18px;
+        }
+
+        .btn-restart:hover {
+            background: #5568d3;
+        }
+
+        @media (max-width: 768px) {
+            .btn-restart {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>IBAGSAK MO BAYBEH!</h1>
+            <div class="progress-container" id="progressContainer" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="stats">
+                    <span>Question: <span id="currentQuestion">1</span>/<span id="totalQuestions">10</span></span>
+                    <span>Score: <span id="score">0</span>/<span id="answered">0</span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="start-screen active" id="startScreen">
+            <div class="start-icon">🌍</div>
+            <div class="start-title">Welcome to BAGSAKAN!</div>
+            <div class="start-description">
+                Test your knowledge about the Macro Subject with 100+ challenging questions. Choose whether you want
+                shuffled questions for variety or keep them in order.
+            </div>
+            <div class="shuffle-option" id="shuffleOption" onclick="toggleShuffle()">
+                <div class="checkbox" id="shuffleCheckbox"></div>
+                <span>Shuffle Questions</span>
+            </div>
+            <button class="btn btn-start" onclick="startQuiz()">Start Quiz</button>
+        </div>
+
+        <div class="quiz-content" id="quizContent" style="display: none;">
+            <div class="question-number" id="questionNumber"></div>
+            <div class="question-text" id="questionText"></div>
+            <div class="choices" id="choices"></div>
+            <div class="feedback" id="feedback"></div>
+        </div>
+
+        <div class="result-screen" id="resultScreen">
+            <div class="result-icon">🎉</div>
+            <div class="result-score" id="finalScore"></div>
+            <div class="result-message" id="resultMessage"></div>
+            <div class="result-details">
+                <p>Total Questions: <span id="totalQ"></span></p>
+                <p>Correct Answers: <span id="correctA"></span></p>
+                <p>Wrong Answers: <span id="wrongA"></span></p>
+                <p>Percentage: <span id="percentage"></span>%</p>
+            </div>
+            <button class="btn btn-restart" onclick="restartQuiz()">Restart Quiz</button>
+        </div>
+
+        <div class="navigation" style="display: none;">
+            <button class="btn btn-prev" id="prevBtn" onclick="prevQuestion()">Previous</button>
+            <button class="btn btn-next" id="nextBtn" onclick="nextQuestion()">Next</button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            { q: "This sector of the tourism industry includes the process of preparing, presenting, and serving food and beverages to customers.", choices: ["Attractions Sector", "Food and Beverage Service Sector", "Meetings, Incentives, Conventions, and Exhibitions (MICE) Sector", "Accommodation Sector"], answer: "B" },
+            { q: "It refers to factors at work in any society that drive and set limits to the volume of a population's demand for holidays and travel.", choices: ["Intermediaries", "Buyer Behavior", "Travel Motivation", "Determinants of Tourism Demand"], answer: "D" },
+            { q: "It is a component of the tourism industry that involves businesses providing services, activities, and products consumed and purchased directly by tourists.", choices: ["Developmental Organizations", "Tourism Demand", "Support Services", "Direct Providers"], answer: "D" },
+            { q: "It is a component of the tourism industry that gives products and services to direct providers who then sell these products and services directly to tourists", choices: ["Direct Providers", "Developmental Organizations", "Support Services", "Tourism System"], answer: "C" },
+            { q: "This requirement for tourism involves access to transportation and the hours required to get to a destination.", choices: ["Motivation", "Mobility", "Money", "Time"], answer: "B" },
+            { q: "Which international tourism organization prioritize: mainstreaming tourism in the global agenda, improving tourism competitiveness, promoting sustainable tourism development, and advancing tourism's contribution to poverty reduction and development?", choices: ["United Nations World Tourism Organization (UNWTO)", "International Union for the Conservation of Nature (IUCN)", "World Travel and Tourism Council (WTTC)", "Pacific Asia Travel Association (PATA)"], answer: "A" },
+            { q: "It is a component of the tourism supply that comprises all underground and surface developmental constructions that make business activity possible.", choices: ["Infrastructure", "Superstructure", "Transportation and Transportation Equipment", "Hospitality Resources"], answer: "A" },
+            { q: "It refers to factors at work in any society that drive and set limits to the volume of a population's demand for holidays and travel.", choices: ["Intermediaries", "Buyer Behavior", "Travel Motivation", "Determinants of Tourism Demand"], answer: "D" },
+            { q: "This means that a tourism product or service cannot be stored for sale at a future date.", choices: ["Seasonality", "Inseparability", "Variability", "Perishability"], answer: "D" },
+            { q: "It is a component of the tourism industry that involves businesses providing services, activities, and products consumed and purchased directly by tourists.", choices: ["Developmental Organizations", "Tourism Demand", "Support Services", "Direct Providers"], answer: "D" },
+            { q: "Which agency attached to the Department of Tourism (DOT) provides fully developed and well-maintained parks for the wholesome recreation and socio-cultural education of the Filipino people?", choices: ["Tourism Infrastructure and Enterprise Zone Authority (TIEZA)", "Philippine Retirement Authority (PRA)", "Nayong Pilipino Foundation", "National Parks Development Committee (NPDC)"], answer: "D" },
+            { q: "It is a tourism supply component that refers to the movement of goods or people from one place to another.", choices: ["Superstructure", "Infrastructure", "Natural Resources", "Transportation and Transportation Equipment"], answer: "D" },
+            { q: "It means that a tourism product involves other sectors in its production, and a single enterprise cannot provide it.", choices: ["Absence of Ownership", "Variability", "Manufactured by Many Producers", "Intangibility"], answer: "C" },
+            { q: "Which basic travel motivator engages the need for fame and status or self-esteem and personal development?", choices: ["Interpersonal Motivators", "Cultural Motivators", "Physical Motivators", "Status and Prestige Motivators"], answer: "D" },
+            { q: "This term refers to a framework that shows the interaction between tourism demand, the bridging components between supply and demand, and the tourism supply at a destination.", choices: ["Tourism Supply Chain", "Tourism System", "Tourism Network", "Tourism Supply"], answer: "B" },
+            { q: "It is a form of tourism that consists of inbound and outbound tourism.", choices: ["International Tourism", "Outbound Tourism", "Inbound Tourism", "Domestic Tourism"], answer: "A" },
+            { q: "It is a component of the tourism system that refers to all assets, services, and goods enjoyed or purchased and occasioned by tourists.", choices: ["Tourism Supply", "Tourism Demand", "Bridging Components", "Tourism System Flow"], answer: "A" },
+            { q: "It is a component of the tourism supply that includes above-ground facility services where business activities occur.", choices: ["Natural Resources", "Superstructure", "Infrastructure", "Hospitality Resources"], answer: "B" },
+            { q: "World Peace Group aims to protect marine biodiversity. Which international tourism organization is suited to help them achieve their goal?", choices: ["World Wildlife Fund (WWF)", "Pacific Asia Travel Association (PATA)", "UNESCO", "Cruise Lines International Association (CLIA)"], answer: "A" },
+            { q: "Which of the following statements is INCORRECT about tourism demand?", choices: ["Tourism demand is the number of people that plan to purchase tourism products supported by sufficient purchasing power.", "The determinants of tourism demand are factors in society that drive and set limits to the volume of a population’s demand for holidays and travel.", "Tourism demand is sensitive to changes in the supply of products and the capacity of supply.", "Tourism demand consists of determinants of demand and motivations."], answer: "D" },
+            { q: "Which statement is INCORRECT about the definition of tourism?", choices: ["Tourism is a social, cultural, technological, and economic phenomenon related to the movement of people outside their residence for pleasure.", "Tourism describes the product offered to tourists and what the tourists experience.", "Tourism is the behavior of tourists and what they need and seek.", "Tourism refers to the activities of persons traveling outside their usual environment for not more than one year for leisure, business, and other purposes."], answer: "A" },
+            { q: "Beaches, amusement parks, zoos, and museums belong to which sector of the tourism industry?", choices: ["Attractions", "Food and Beverage Service", "Accommodation", "Travel Trade"], answer: "A" },
+            { q: "Cornelia, a travel agency owner, decided to offer discounted rates for their tour packages when demand is low. Which characteristic of tourism product is shown?", choices: ["Intangibility", "Variability", "Seasonality", "Absence of Ownership"], answer: "C" },
+            { q: "During the COVID-19 pandemic, the Philippine government issued travel bans to protect residents. What role of the government is exhibited?", choices: ["Promote Tourism to Home and Overseas Markets", "Plan and Facilitate Tourism", "Direct Ownership of Tourism Components", "Control and Supervision of Tourism"], answer: "D" },
+            { q: "Which is NOT a function of the travel trade sector of tourism?", choices: ["Make reservations for accommodations, transportation, tours, food and beverage, and attractions in one package", "Resell travel products and services from other parties", "Create, facilitate, and enforce laws", "Serve as middlemen between the tourism sectors and clients"], answer: "C" },
+            { q: "Which statement describes the support services component of the tourism industry?", choices: ["Pan Airways issued a ticket to a customer.", "The Department of Tourism inspected travel agencies.", "A hotel assisted many walk-in guests.", "A catering service provides food and beverage for events."], answer: "D" },
+            { q: "Which scenario correctly describes an excursionist?", choices: ["Stayed overnight in La Union", "Traveled to Tagaytay and returned the same day", "Visited family in Chicago for three months", "Attended an overnight retreat near school"], answer: "B" },
+            { q: "Peter is looking for a job in the transportation sector of tourism. Which opportunities can he consider?", choices: ["Ride operator, ticket sales officer, dealer, theme park manager", "Airline operations manager, flight attendant, ground crew, ticketing agent", "Housekeeper, sales representative, front desk officer, concierge", "Event organizer, marketing officer, director of events operations"], answer: "B" },
+            { q: "Mrs. Salvador booked a round-trip ticket by calling AirAsia directly. Which component of the tourism industry is shown?", choices: ["Support Services", "Direct Providers", "Developmental Organizations", "Tourism System"], answer: "B" },
+            { q: "It is a component of the tourism industry that deals with tourism development that is more complex and broader than the production of daily travel services.", choices: ["Developmental Organizations", "Direct Providers", "Support Services", "Tourism System"], answer: "A" },
+            { q: "Which scenario correctly illustrates domestic tourism?", choices: ["Rico, an American, goes to San Francisco, California to meet their company’s executive partners.", "Dale, a Filipino, visits his sister in Singapore.", "A couple from India went to Baguio for their honeymoon.", "Kylie traveled from Canada to Australia to taste different cuisines."], answer: "A" },
+
+            { q: "San Jose Builders supply furniture to hotels and restaurants. What component of the tourism industry is described in the example?", choices: ["Developmental Organizations", "Support Services", "Direct Providers", "Infrastructure"], answer: "B" },
+
+            { q: "Which of the statements is CORRECT about the Association of Southeast Asian Nations (ASEAN)?", choices: ["Its 21 members aim to create greater prosperity through balanced and secure growth.", "It is an organization developing the new World Heritage and Sustainable Tourism Programme.", "Its mission is to conserve nature’s integrity and ensure sustainable resource use.", "It is an organization of 10 Southeast Asian countries promoting cultural, economic, and political development."], answer: "D" },
+
+            { q: "Which statement is CORRECT about the tourism system flow?", choices: ["It consists only of interactions between bridging components and tourism supply.", "The tourism demand provides the essential link between bridging components and supply.", "The relationship between supply and demand, via the bridging components, is a two-way link.", "The tourism supply makes agreements with destination supply firms to support their customers at the destination."], answer: "C" },
+
+            { q: "Which statement is TRUE concerning the tourism supply?", choices: ["The supply at the destination is the key element and attracts people to destinations.", "Tourism supply consists of natural resources, infrastructure, superstructure, and hospitality resources.", "Tourism supply refers to assets purchased by tour operators and intermediaries.", "Tourists visit destinations solely because of their physical appearance."], answer: "A" },
+
+            { q: "Which statement is INCORRECT regarding the bridging components of the tourism system?", choices: ["These are visible in transport infrastructures and marketing intermediaries.", "These consist mainly of intermediaries and facilitators assisting in efficient functioning.", "These are suppliers connected to tourists through marketing channels.", "These coordinate between direct providers and suppliers at a destination."], answer: "D" },
+
+            { q: "Which statement is INCORRECT regarding the tourism supply chain?", choices: ["The service flow includes second-tier suppliers that directly supply services to intermediaries.", "It is a network of tourism organizations engaged in supply and distribution activities.", "Its service flow involves tour operators assembling services into packages for tourists.", "It involves a wide range of participants in both the private and public sectors."], answer: "A" },
+
+            { q: "Which term is concerned with people in groups, their interactions, attitudes, and behavior?", choices: ["Culture", "Society", "Community", "Ethics"], answer: "B" },
+
+            { q: "This negative sociocultural impact occurs when two cultures interact and become similar due to the exchange of ideas and products.", choices: ["Cultural Clash", "Cross-cultural Exchange", "Demonstration Effect", "Acculturation"], answer: "D" },
+
+            { q: "Which negative environmental impact is generated mainly by the increased volume of recreational vehicles, cars, airplanes, motorboats, and motorcycles?", choices: ["Soil Pollution", "Noise Pollution", "Water Pollution", "Visual Pollution"], answer: "B" },
+
+            { q: "This type of leakage refers to resources collected by the government through taxes leaving circulation and reducing purchasing power.", choices: ["Import", "Export", "Tax", "Saving"], answer: "C" },
+
+            { q: "Which refers to how often the money a tourist spends circulates through a country’s economy?", choices: ["Induced Effect", "Tourism Multiplier Effect", "Economic Multiplier", "Economic Leakage"], answer: "B" },
+
+            { q: "This negative sociocultural impact happens when traditional arts, crafts, and customs are changed or performed to suit tourist demands.", choices: ["Over commercialization of Traditional Arts and Crafts", "Overcrowding and Loss of Amenities", "Demonstration Effect", "Acculturation"], answer: "A" },
+
+            { q: "It is a negative environmental impact that occurs when proper sewage disposal systems are not installed in tourism facilities.", choices: ["Air Pollution", "Noise Pollution", "Visual Pollution", "Water Pollution"], answer: "D" },
+
+            { q: "This term is derived from the fact that the value of tourism spending is multiplied to determine the total economic impact.", choices: ["Multiplier", "Divisor", "Factor", "Product"], answer: "A" },
+
+            { q: "This negative sociocultural impact occurs due to differences in cultures, religions, values, lifestyles, and languages.", choices: ["Acculturation", "Demonstration Effect", "Cultural Clash", "Overcrowding and Loss of Amenities"], answer: "C" },
+
+            { q: "Which refers to the process by which goods and services are produced, sold, and bought in a country or region?", choices: ["Culture", "Society", "Economy", "Environment"], answer: "C" },
+
+            { q: "Which economic impact of tourism spending is experienced by providers of tourist goods and services and directly increases GDP?", choices: ["Multiplier Effect", "Indirect Effect", "Direct Effect", "Induced Effect"], answer: "C" },
+
+            { q: "This positive sociocultural impact happens when tourists appreciate a host community’s culture, giving residents renewed dignity.", choices: ["Cross-cultural Exchange", "Renewal of Cultural Pride", "Conservation of Cultural Heritage", "Creation of Employment"], answer: "B" },
+
+            { q: "This term concerns studying the impacts of tourism on people in groups, including hosts and tourists.", choices: ["Cultural impact aspect of tourism", "Economic impact aspect of tourism", "Environmental impact aspect of tourism", "Social impact aspect of tourism"], answer: "D" },
+
+            { q: "This positive environmental impact occurs when tourism helps clean the environment by controlling pollution and ecological problems.", choices: ["Conservation of Important Natural Areas", "Improvement of Environmental Quality", "Increased Environmental Awareness", "Enhancement of Environment and Infrastructure"], answer: "B" },
+            { q: "It occurs when money does not remain in the country, limiting tourism’s economic benefits to the host country.", choices: ["Tourism Overdependence", "Inflation", "Opportunity Costs", "Leakages"], answer: "D" },
+
+            { q: "The demonstration effect is disruptive when the locals become resentful because they cannot obtain the goods and lifestyles shown by the visitors and may result in a crime. Young people are usually susceptible to the demonstration effect.", choices: ["The first statement is correct, while the second statement is incorrect", "The first statement is incorrect, while the second statement is correct.", "Both statements are correct.", "Both statements are incorrect."], answer: "C" },
+
+            { q: "Which statement is INCORRECT regarding the economic impact control strategies for tourism?", choices: ["Training improves direct economic benefits of tourism.", "Educating tourists about culture teaches them what to avoid doing during their stay.", "Providing quality products encourages higher tourist expenditures.", "Maximizing local goods reduces leakage."], answer: "B" },
+
+            { q: "Annie ensured the architectural design of her souvenir shop matched the geographic and cultural setting. This strategy battles against which impact of tourism?", choices: ["Technological", "Sociocultural", "Economic", "Environmental"], answer: "B" },
+
+            { q: "Treetop Hotels and Resorts’ supplies mainly came from China. Which economic leakage occurs in this scenario?", choices: ["Imports", "Taxes", "Savings", "Exports"], answer: "A" },
+
+            { q: "Promoting tourism in different periods to lessen multiple masses of tourists is a strategy against overcrowded amenities and transport congestion. This relates to which impact of tourism?", choices: ["Environmental Impact", "Economic Impact", "Technological Impact", "Sociocultural Impact"], answer: "D" },
+
+            { q: "Janna, a travel agent, contracted a car rental company for their tour packages. Which economic impact of tourism spending is described?", choices: ["Indirect Effect", "Induced Effect", "Direct Effect", "Multiplier Effect"], answer: "A" },
+
+            { q: "The term 'multiplier' means tourism spending is multiplied to determine total economic impact. The multiplier effect refers to how often tourist money circulates in the economy.", choices: ["First correct, second incorrect", "First incorrect, second correct", "Both correct", "Both incorrect"], answer: "C" },
+
+            { q: "Which are negative economic impacts of tourism? (I. Tourism Overdependence II. Cultural Clashes III. Opportunity Costs IV. Leakages V. Waste Disposal Problems VI. Acculturation)", choices: ["I, III, IV", "I, II, VI", "III, IV, V", "II, III, VI"], answer: "A" },
+
+            { q: "The multiplier effect applies to any industry. Within tourism, it refers to economic impacts brought by changes in tourism spending.", choices: ["First correct, second incorrect", "First incorrect, second correct", "Both correct", "Both incorrect"], answer: "C" },
+
+            { q: "The LGU of Baguio City held a financial management seminar for local businesses. Which impact control strategy is shown?", choices: ["Environmental", "Economic", "Sociocultural", "Technological"], answer: "B" },
+
+            { q: "Sara kept her business income in a bank without spending. Which type of leakage is this?", choices: ["Taxes", "Imports", "Savings", "Exports"], answer: "C" },
+
+            { q: "Which are negative sociocultural impacts? (I. Leakages II. Demonstration Effect III. Inflation IV. Cultural Clashes V. Over commercialization of Arts VI. Ecological Disruption)", choices: ["I, II, III", "I, IV, VI", "II, IV, V", "II, III, VI"], answer: "C" },
+
+            { q: "If a traditional ceremony is performed worldwide due to tourist demand, which negative sociocultural impact occurs?", choices: ["Cross-cultural Exchange", "Over commercialization of Traditional Arts and Crafts", "Demonstration Effect", "Overcrowding and Loss of Amenities"], answer: "B" },
+
+            { q: "Deforestation is the clearing of forests by humans. This activity leads to corrosion.", choices: ["First correct, second incorrect", "First incorrect, second correct", "Both correct", "Both incorrect"], answer: "A" },
+
+            { q: "Many destinations give up traditional livelihoods for tourism, but income from tourism is often lower than expected.", choices: ["First correct, second incorrect", "First incorrect, second correct", "Both correct", "Both incorrect"], answer: "C" },
+
+            { q: "Which is an environmental impact control strategy?", choices: ["Provide business training to increase benefits", "Educate tourists about culture", "Establish strict control on resource collection", "Maintain authenticity of performances"], answer: "C" },
+
+            { q: "Kayla uses her salary to pay bills. What economic impact of tourism spending is observed?", choices: ["Indirect Effect", "Induced Effects", "Direct Effect", "Multiple Effects"], answer: "B" },
+
+            { q: "Mandy and Freya's luxurious clothing caused resentment among locals. Which tourism impact is represented?", choices: ["Economic", "Technological", "Environmental", "Sociocultural"], answer: "D" },
+
+            { q: "Which statement is TRUE regarding economic leakage?", choices: ["Leakage is money leaving the host country.", "Three types of leakages are taxes, savings, and exports.", "Taxes are leakage from income not used to consume goods.", "Savings are leakage from taxes reducing purchasing power."], answer: "A" },
+
+            { q: "Harry sold a plane ticket and generated income for the airline. Which economic impact is this?", choices: ["Induced Effect", "Multiplier Effect", "Indirect Effect", "Direct Effect"], answer: "D" },
+
+            { q: "Which article of the Global Code of Ethics for Tourism is about the freedom of visitors to move without discrimination?", choices: ["Implementation of Principles", "Liberty of tourist movements", "Obligations of stakeholders", "Right to tourism"], answer: "B" },
+
+            { q: "Which article requires tourism professionals to provide tourists with objective and honest information?", choices: ["Article 6", "Article 7", "Article 8", "Article 9"], answer: "A" },
+
+            { q: "Which refers to the level of risk retained intentionally by a company?", choices: ["Risk analysis", "Risk control", "Risk retention", "Risk transfer"], answer: "C" },
+
+            { q: "It is a comprehensive set of principles for guiding stakeholders in tourism development.", choices: ["Global Code of Ethical Travel", "Global Code of Ethics in Tourism", "Sustainable Development Goals", "Sustainable Tourism Goals"], answer: "B" },
+
+            { q: "Which SDG refers to tourism strengthening partnerships among multiple stakeholders?", choices: ["Decent Work and Economic Growth", "Responsible Consumption and Production", "Partnership for the Goals", "Industry Innovation and Infrastructure"], answer: "C" },
+
+            { q: "What is the correct meaning of GCET?", choices: ["Global Code of Economic Trade", "Global Code of Environmental Tourism", "Global Code of Ethical Travel", "Global Code of Ethics for Tourism"], answer: "D" },
+
+            { q: "Which form of tourism emphasizes that stakeholder roles are important in the kind of tourism locals develop?", choices: ["Community-based tourism", "Ecotourism", "Responsible tourism", "Sustainable tourism"], answer: "C" },
+
+            { q: "Which article states that tourism, practiced with an open mind, becomes an irreplaceable factor of self-education and mutual tolerance?", choices: ["Article 10", "Article 7", "Article 3", "Article 2"], answer: "D" },
+            { q: "Which sustainable development goal aims to advance urban infrastructure and accessibility, promote regeneration, and preserve cultural and natural heritage?", choices: ["Climate Action", "Industry Innovation and Infrastructure", "No Poverty", "Sustainable Cities and Communities"], answer: "D" },
+
+            { q: "This tourism crisis management concept involves preparing contingency plans and staging drills or simulations.", choices: ["Readiness", "Recovery", "Reduction", "Response"], answer: "A" },
+
+            { q: "It involves any mitigation strategies used to avoid exposure to risks.", choices: ["Exposure avoidance", "Loss reduction", "Risk retention", "Risk transfer"], answer: "A" },
+
+            { q: "It refers to an event or set of circumstances that can severely compromise or damage the reputation and marketability of a tourism business.", choices: ["Crisis", "Hazard", "Risk", "Tragedy"], answer: "A" },
+
+            { q: "It is the largest number of people a destination can efficiently manage within its given environment and management capabilities.", choices: ["Carrying capacity", "Environmental aptitude", "Guest visit statistics", "Land area to visitor ratio"], answer: "A" },
+
+            { q: "What is the correct meaning of the acronym UNWTO?", choices: ["United Nations World Trade Organizations", "United Nations World Travel Organization", "United Nations Worldwide Tour Operators", "United Nations World Tourism Organization"], answer: "D" },
+
+            { q: "It is the initial stage of the risk management process.", choices: ["Risk analysis", "Risk control", "Risk identification", "Risk treatment"], answer: "C" },
+
+            { q: "Article 4 of GCET discusses tourism as beneficial for host communities. Article 3 states that stakeholders should safeguard the natural environment while achieving sustainable economic growth.", choices: ["The first statement is correct, while the second is incorrect.", "The first statement is incorrect, while the second is correct.", "Both statements are correct.", "Both statements are incorrect."], answer: "B" },
+
+            { q: "Tourism encourages local entrepreneurship and community reinvestment within the local region. Which characteristic of sustainable tourism is described?", choices: ["Becomes Part of the Local Culture", "Benefits Local Economic Development", "Ensures Tourism Development Benefits Both Community and Environment", "Meets Both Profitability and Viability"], answer: "B" },
+
+            { q: "Tourism fosters Muslim-Christian interactions, promoting multicultural understanding. Which UNWTO sustainable development goal is described?", choices: ["Gender Equality", "Peace, Justice and Strong Institutions", "Partnership for the Goals", "Sustainable Cities and Communities"], answer: "B" },
+
+            { q: "Region VI’s tourism office reviews historical losses, conducts inspections, and meets with management. Which stage of the risk management process is shown?", choices: ["Risk analysis", "Risk control", "Risk identification", "Risk treatment"], answer: "C" },
+
+            { q: "Which of the following is NOT an example of exposure avoidance?", choices: ["Avoiding certain areas due to environmental threats", "Changing destination due to political unrest", "Eliminating hazardous activities", "Requiring helmets for tourists"], answer: "D" },
+
+            { q: "Which is NOT a characteristic of responsible tourism under the Cape Town Declaration?", choices: ["Generates economic benefits for locals", "Involves locals in decisions", "Offers high-value, high-price, low-volume goods", "Provides access for physically challenged people"], answer: "C" },
+
+            { q: "Which statement correctly specifies the ‘Climate Action’ SDG?", choices: ["Tourism fosters multicultural tolerance", "Tourism preserves biodiversity and offers livelihood", "Tourism reduces its carbon footprint", "Tourism joins Integrated Coastal Zone Management"], answer: "C" },
+
+            { q: "Kagebunshin Park generates revenue for local communities due to its rich biodiversity and heritage. Which SDG is evident?", choices: ["Decent Work and Economic Growth", "Life on Land", "No Poverty", "Sustainable Cities and Communities"], answer: "C" },
+
+            { q: "Angat Turismo Program strengthens partnerships to alleviate poverty through tourism. Which SDG does it follow?", choices: ["Good Health and Well-being", "Industry Innovation and Infrastructure", "Partnership for the Goals", "Zero Hunger"], answer: "C" },
+
+            { q: "The initial stage of risk management is implementing mitigation strategies for unacceptable risks. The initial stage is often called risk assessment.", choices: ["First correct, second incorrect", "First incorrect, second correct", "Both correct", "Both incorrect"], answer: "B" },
+
+            { q: "GCET is a fundamental reference for responsible tourism. GCET implementation is a comprehensive guide for stakeholders.", choices: ["First correct, second incorrect", "First incorrect, second correct", "Both correct", "Both incorrect"], answer: "A" },
+
+            { q: "JRD Corp. pays premiums to transfer financial risk to Sunset Insurance. Which risk management stage is this?", choices: ["Risk analysis", "Risk control", "Risk identification", "Risk transfer"], answer: "D" },
+
+            { q: "Kaius compares the frequency of risks with severity. What stage is he performing?", choices: ["Risk analysis", "Risk control", "Risk identification", "Risk transfer"], answer: "A" },
+
+            { q: "Offering goods and services high in value and price but low in volume is key to profit and long-term success. Which characteristic is this?", choices: ["Becomes Part of Local Culture", "Benefits Local Economic Development", "Ensures Benefits to Community and Environment", "Meets Profitability and Viability"], answer: "D" },
+
+            { q: "Extensive participation in tourism should be regarded as an expression of the sustained growth of free time. Which GCET article is described?", choices: ["Article 4", "Article 2", "Article 6", "Article 7: Right to Tourism"], answer: "D" },
+
+            { q: "A coastal town reinvests tourism profits into schools, healthcare, and infrastructure. Which characteristic of sustainable tourism is this?", choices: ["Strengthen efficiency for regional development", "Increase visitor arrivals", "Promote new business ventures", "Remain profitable while reinvesting benefits to local communities"], answer: "A" },
+
+            { q: "A travel agency suspends tours in a politically unstable country. Which strategy is used?", choices: ["Exposure avoidance", "Loss reduction", "Risk transfer", "Risk retention"], answer: "A" },
+
+            { q: "A ski resort sees low accident probability but high severity. What should management do?", choices: ["Maintain operations unchanged", "Require waivers", "Strengthen safety systems", "Enhance promotions"], answer: "C" },
+
+            { q: "A tour operator increases insurance coverage to protect against natural disasters. What stage is this?", choices: ["Risk identification", "Risk control", "Risk treatment", "Risk response"], answer: "C" },
+
+            { q: "After a typhoon, stakeholders coordinate on how to resume operations. Which stage of the Four R Concept is this?", choices: ["Reduction", "Readiness", "Response", "Recovery"], answer: "C" },
+
+            { q: "UNWTO describes the uncertainty and rapid change in 21st-century tourism as:", choices: ["Post-modern era", "Stable tourism decade", "New normal", "Predictable future phase"], answer: "B" },
+
+            { q: "Tourism has countless potential outcomes due to unpredictable global variables. What concept is this?", choices: ["Deterministic forecasting", "Multiple tourism futures", "Static growth theory", "Fixed tourism trends"], answer: "B" },
+
+            { q: "Eco-efficiency in tourism means the ability to:", choices: ["Increase production using more natural resources", "Deliver services using fewer resources and producing less waste", "Use fossil fuels efficiently", "Reduce the number of tourists"], answer: "B" },
+            { q: "When tourism contributes to climate change through transportation emissions, this impact occurs at what level?", choices: ["Individual human level", "Global environmental level", "Only local level", "Cultural level"], answer: "B" },
+
+            { q: "A destination suffering from water scarcity due to tourist demand is experiencing an environmental impact at the:", choices: ["Galactic Level", "Regional level", "Continental level", "Internal industry level"], answer: "B" },
+
+            { q: "Eco-efficiency is important in tourism because many tourism products rely heavily on:", choices: ["Strong political systems", "Natural capital like wildlife, forests, and beaches", "Manufactured goods", "Financial market stability"], answer: "B" },
+
+            { q: "Renewable energy is essential in tourism because it:", choices: ["Increases the price of accommodation", "Significantly reduces environmental footprints like CO₂ emissions", "Eliminates the need for transportation", "Makes fossil fuels unnecessary overnight"], answer: "B" },
+
+            { q: "A hotel that does not monitor its electricity usage and wastes energy primarily suffers from:", choices: ["Overregulated policies", "Inefficient energy management", "Excessive guest complaints", "Lack of training for housekeeping staff"], answer: "B" },
+
+            { q: "The rise in global temperatures due to increased greenhouse gases, primarily from fossil fuel burning, is known as:", choices: ["Environmental cooling", "Industrial equilibrium", "Global warming", "Sustainable heating"], answer: "C" },
+
+            { q: "Climate change affects tourism because it can:", choices: ["Make traditional destinations more profitable", "Cause destinations to lose appeal or even disappear", "Eliminate the need for renewable energy", "Increase snowfall in tropical countries"], answer: "B" },
+
+            { q: "Eco-innovation refers to:", choices: ["Innovations focused only on marketing", "Environmentally beneficial innovations in products or processes", "Cost-cutting measures in hotels", "Removing green policies to improve efficiency"], answer: "B" },
+
+            { q: "A hotel adopting recycled construction materials, energy-saving technologies, and water-efficient systems is practicing:", choices: ["Price maximization", "Eco-innovation", "Conventional development", "Mass tourism strategies"], answer: "B" },
+
+            { q: "The digital revolution in tourism refers to:", choices: ["The decline of computerized systems", "The transformation of tourism by ICTs and the internet", "A ban on mobile devices", "Increased traditional paper booking systems"], answer: "B" },
+
+            { q: "Big data, AI, IoT, cloud computing, and smart wearables are all examples of:", choices: ["Traditional tourism tools", "Digital forces shaping the modern tourism industry", "Outdated technologies", "Non-tourism technologies"], answer: "B" },
+
+            { q: "Travelers now rely on the internet in the pre-travel stage mainly to:", choices: ["Avoid researching destinations", "Plan trips, gather information, and make reservations", "Delay decision-making", "Purchase local farm products"], answer: "B" },
+
+            { q: "During the travel stage, technologies such as NFC allow tourists to:", choices: ["Communicate only with landlines", "Share data between devices using short-range wireless communication", "Replace hotel staff completely", "Travel without passports"], answer: "B" },
+
+            { q: "After traveling, digital platforms allow tourists to:", choices: ["Permanently delete their memories", "Share reviews, feedback, and experiences online", "Stop using technology entirely", "Force destinations to shut down"], answer: "B" },
+
+            { q: "Globalization as a tourism paradigm refers to:", choices: ["A decline in global connectivity", "Expanding flows of people, goods, capital, and knowledge", "Countries limiting travel", "The collapse of the global tourism system"], answer: "B" },
+
+            { q: "International tourism growth over recent decades is largely due to:", choices: ["Reduced infrastructure", "Easier entry policies and better travel services", "Fewer international flights", "High restrictions on visas"], answer: "B" },
+
+            { q: "Ecological economics focuses on:", choices: ["Maximizing profits regardless of environmental cost", "Balancing economic development with ecological sustainability", "Eliminating natural attractions", "Reducing the role of natural resources"], answer: "B" },
+
+            { q: "Air transportation is considered the major contributor to:", choices: ["Noise reduction programs", "Loss of internet connectivity", "CO₂ emissions driving climate change", "Marine biodiversity recovery"], answer: "C" },
+
+            { q: "The recommended response to climate change in tourism includes:", choices: ["Increasing fossil fuel subsidies", "Adaptation and mitigation strategies", "Reducing ecotourism", "Building more high-pollution resorts"], answer: "B" },
+
+            { q: "The internet economy influences tourism by:", choices: ["Removing online platforms", "Providing online booking and price comparisons", "Requiring all bookings to be made in person", "Eliminating competition"], answer: "B" },
+
+            { q: "Sites like Expedia and Booking.com disrupt traditional travel agencies by:", choices: ["Reducing the number of available flights", "Offering online convenience and competitive pricing", "Limiting hotel choices", "Providing printed catalogs only"], answer: "B" },
+
+            { q: "Technology is defined as knowledge related to:", choices: ["Social media alone", "The creation and use of technical means", "Only manual tools", "Travel literature"], answer: "B" },
+
+            { q: "According to Google Travel, most travelers now prefer:", choices: ["Visiting local tourist centers for brochures", "Planning trips via the internet", "Avoiding digital tools", "Using only printed guidebooks"], answer: "B" },
+
+            { q: "Mobile technology is essential in tourism because it allows travelers to:", choices: ["Ban online check-in", "Use phones as guides, maps, and booking assistants", "Disable communication services", "Travel without planning"], answer: "B" },
+
+            { q: "KLM’s Messenger service is designed to:", choices: ["Play games", "Send trip information, boarding passes, and flight updates", "Replace email systems entirely", "Sell souvenirs"], answer: "B" },
+
+            { q: "Augmented Reality (AR) enhances travel by:", choices: ["Replacing the real world with virtual worlds", "Adding digital elements to real-world environments", "Eliminating visual experiences", "Providing audio-only content"], answer: "B" },
+
+            { q: "Virtual Reality (VR) is best described as:", choices: ["A slightly improved version of AR", "A full immersive simulation of near-reality", "Only useful for writing documents", "Entirely physical travel"], answer: "B" },
+
+            { q: "Beeyonder is an example of a platform that offers:", choices: ["Traditional hotel services", "Live, interactive virtual worldwide tours", "Only travel insurance", "Language tutorials"], answer: "B" },
+
+            { q: "The Internet of Things (IoT) refers to:", choices: ["People connecting physically", "Objects connected to the internet through sensors", "Books stored online", "Emails shared between hotels"], answer: "B" },
+
+            { q: "A hotel that lets guests control lighting and temperature through a mobile app is using:", choices: ["Outdated manual systems", "IoT technology", "Government regulation", "Traditional tourism processes"], answer: "B" },
+            { q: "Watson Assistant by IBM allows tourism companies to:", choices: ["Book airline engines", "Provide AI-powered customer interactions", "Eliminate phone services", "Run only financial transactions"], answer: "B" },
+
+            { q: "Big data is characterized by:", choices: ["Small datasets that rarely change", "Massive, fast-growing, diverse information sets", "Information stored only in notebooks", "Unchanging, simple data"], answer: "B" },
+
+            { q: "Marriott uses big data mostly to:", choices: ["Spy on guests", "Track competitors and generate new revenue ideas", "Replace all hotel staff", "Limit customer choices"], answer: "B" },
+
+            { q: "Blockchain technology is primarily used in tourism to:", choices: ["Remove booking systems", "Enable secure and traceable transactions", "Increase booking errors", "Replace all credit card companies"], answer: "B" },
+
+            { q: "Winding Tree uses blockchain to:", choices: ["Sell food", "Facilitate decentralized booking of flights and hotels", "Issue passports", "Manage tourist driver’s licenses"], answer: "B" },
+
+            { q: "The main advantage of 5G for tourism is:", choices: ["Slower download speeds", "Reduced connectivity", "Faster, more stable smart device communication", "Less access to virtual reality"], answer: "C" },
+
+            { q: "Immersive tourism enabled by 5G allows tourists to:", choices: ["Walk underwater", "Become part of enhanced digital travel experiences", "Remove all digital tools", "Ban AR and VR"], answer: "B" },
+
+            { q: "A hotel chain investing in customer relationship management (CRM) systems is improving:", choices: ["In-room dining prices", "Real-time communication with guests", "Outdoor landscaping", "Only staff uniforms"], answer: "B" },
+
+            { q: "Increased reliance on technology exposes tourism firms to:", choices: ["Cybersecurity threats", "More wildlife interactions", "More local festivals", "Lower online visibility"], answer: "A" },
+
+            { q: "Technology adoption in tourism is challenging mainly because:", choices: ["Technology is unnecessary", "It is expensive and time-consuming to implement", "It does not improve efficiency", "Tourists dislike modern systems"], answer: "B" },
+
+            { q: "New destinations emerging in the global tourism market are primarily the result of:", choices: ["Decreasing innovation", "Technological advancements", "Decreasing international travel interests", "Lack of infrastructure"], answer: "B" },
+
+            { q: "A coastal resort is experiencing severe erosion due to climate change. This demonstrates:", choices: ["IoT failure", "Global warming’s effect on tourism destinations", "Blockchain inefficiency", "Increased globalization"], answer: "B" },
+
+            { q: "A hotel wants to reduce its energy bill and waste. The BEST approach is to:", choices: ["Increase lighting hours", "Implement eco-efficiency measures", "Offer more plastic amenities", "Reduce renewable energy use"], answer: "B" },
+
+            { q: "A tourist uses their phone to check-in, unlock their room, and find restaurants. This is:", choices: ["Overdependence on electricity", "Mobile technology integration in tourism", "Poor tourism planning", "Traditional travel behavior"], answer: "B" },
+
+            { q: "A traveler posts hotel reviews and photos after checkout. This is which travel phase?", choices: ["Pre-travel", "During travel", "After travel", "All phases"], answer: "C" },
+
+            { q: "A hotel adds sensor-based thermostats that adjust automatically. This is an example of:", choices: ["Blockchain", "IoT technology", "Virtual reality", "Manual regulation"], answer: "B" },
+
+            { q: "A travel agency struggles because clients now book online. This illustrates:", choices: ["Declining digital interest", "Disruption caused by the internet economy", "Strong government control", "Need for printed brochures"], answer: "B" },
+
+            { q: "A destination that loses tourists as temperatures rise shows:", choices: ["Anti-globalization", "Climate change threatening destination appeal", "Efficient energy usage", "Increased tourist safety"], answer: "B" },
+
+            { q: "A traveler chooses a hotel due to personalized recommendations. This is:", choices: ["AR failure", "Big data–based personalization", "Limited analytics", "Paper-based marketing"], answer: "B" },
+
+            { q: "A flight booking system uses blockchain and removes third-party fees. This demonstrates:", choices: ["Inefficient tourism technology", "Blockchain improving transaction transparency", "VR replacing flights", "AI malfunction"], answer: "B" },
+
+            { q: "A tourist uses VR to visit Antarctica from home. This reflects:", choices: ["IoT innovation", "Virtual reality enabling remote travel", "Decline in digital tourism", "AR malfunction"], answer: "B" },
+
+            { q: "Eco-innovation is essential for tourism because:", choices: ["Tourism depends heavily on natural environments", "Technology removes environmental concerns", "Destinations don’t need sustainability", "It reduces tourist demand"], answer: "A" },
+
+            { q: "The relationship between tourism and the environment is complex because:", choices: ["Tourism has no environmental impact", "Tourism both benefits from and harms natural resources", "Tourists avoid nature", "Technology eliminates environmental issues"], answer: "B" },
+
+            { q: "Smart wearables contribute to tourism by:", choices: ["Helping tourists track health, maps, and activities", "Replacing reservation systems", "Creating pollution", "Eliminating mobile phones"], answer: "A" },
+
+            { q: "Cloud services benefit tourism companies by:", choices: ["Reducing internet availability", "Allowing storage and access to data online", "Eliminating networks", "Limiting business expansion"], answer: "B" },
+
+            { q: "A disadvantage of rapid technological change in tourism is:", choices: ["Low tourist satisfaction", "High costs and constant need for updates", "Less connectivity", "No innovation needed"], answer: "B" },
+
+            { q: "A tourism firm investing in sustainability, digital platforms, and customer-centered tech is:", choices: ["Reacting to global tourism trends", "Ignoring changes", "Wasting resources", "Avoiding modernization"], answer: "A" }
+        ];
+
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let scoreCount = 0;
+        let shouldShuffle = false;
+        let activeQuizData = [];
+
+        function toggleShuffle() {
+            shouldShuffle = !shouldShuffle;
+            const checkbox = document.getElementById('shuffleCheckbox');
+            const option = document.getElementById('shuffleOption');
+
+            if (shouldShuffle) {
+                checkbox.textContent = '✓';
+                option.classList.add('selected');
+            } else {
+                checkbox.textContent = '';
+                option.classList.remove('selected');
+            }
+        }
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function startQuiz() {
+            activeQuizData = shouldShuffle ? shuffleArray(quizData) : [...quizData];
+
+            document.getElementById('startScreen').classList.remove('active');
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('progressContainer').style.display = 'block';
+            document.getElementById('quizContent').style.display = 'block';
+            document.querySelector('.navigation').style.display = 'flex';
+
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const question = activeQuizData[currentQuestionIndex];
+            const questionNumberEl = document.getElementById('questionNumber');
+            const questionTextEl = document.getElementById('questionText');
+            const choicesEl = document.getElementById('choices');
+            const feedbackEl = document.getElementById('feedback');
+
+            questionNumberEl.textContent = `Question ${currentQuestionIndex + 1} of ${activeQuizData.length}`;
+            questionTextEl.textContent = question.q;
+
+            choicesEl.innerHTML = '';
+            feedbackEl.classList.remove('show', 'correct', 'wrong');
+
+            const letters = ['A', 'B', 'C', 'D'];
+            question.choices.forEach((choice, index) => {
+                const choiceDiv = document.createElement('div');
+                choiceDiv.className = 'choice';
+                choiceDiv.innerHTML = `
+                    <div class="choice-letter">${letters[index]}</div>
+                    <div class="choice-text">${choice}</div>
+                `;
+
+                if (userAnswers[currentQuestionIndex]) {
+                    choiceDiv.classList.add('disabled');
+                    if (letters[index] === question.answer) {
+                        choiceDiv.classList.add('correct');
+                    }
+                    if (letters[index] === userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex] !== question.answer) {
+                        choiceDiv.classList.add('wrong');
+                    }
+                } else {
+                    choiceDiv.onclick = () => selectAnswer(letters[index]);
+                }
+
+                choicesEl.appendChild(choiceDiv);
+            });
+
+            updateProgress();
+            updateButtons();
+        }
+
+        function selectAnswer(selected) {
+            const question = activeQuizData[currentQuestionIndex];
+            userAnswers[currentQuestionIndex] = selected;
+
+            const choices = document.querySelectorAll('.choice');
+            choices.forEach(choice => {
+                choice.classList.add('disabled');
+                choice.onclick = null;
+            });
+
+            const selectedChoice = choices[['A', 'B', 'C', 'D'].indexOf(selected)];
+            const correctChoice = choices[['A', 'B', 'C', 'D'].indexOf(question.answer)];
+
+            const feedbackEl = document.getElementById('feedback');
+
+            if (selected === question.answer) {
+                selectedChoice.classList.add('correct');
+                scoreCount++;
+                feedbackEl.textContent = '✓ Correct!';
+                feedbackEl.classList.add('show', 'correct');
+            } else {
+                selectedChoice.classList.add('wrong');
+                correctChoice.classList.add('correct');
+                feedbackEl.textContent = `✗ Wrong! The correct answer is ${question.answer}`;
+                feedbackEl.classList.add('show', 'wrong');
+            }
+
+            updateProgress();
+        }
+
+        function updateProgress() {
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('totalQuestions').textContent = activeQuizData.length;
+            document.getElementById('score').textContent = scoreCount;
+            document.getElementById('answered').textContent = userAnswers.filter(a => a).length;
+
+            const progress = ((currentQuestionIndex + 1) / activeQuizData.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function updateButtons() {
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+
+            if (currentQuestionIndex === activeQuizData.length - 1) {
+                document.getElementById('nextBtn').textContent = 'Finish';
+            } else {
+                document.getElementById('nextBtn').textContent = 'Next';
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < activeQuizData.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quizContent').style.display = 'none';
+            document.querySelector('.navigation').style.display = 'none';
+            document.getElementById('progressContainer').style.display = 'none';
+            document.getElementById('resultScreen').classList.add('active');
+
+            const totalQuestions = activeQuizData.length;
+            const correctAnswers = scoreCount;
+            const wrongAnswers = totalQuestions - correctAnswers;
+            const percentage = ((correctAnswers / totalQuestions) * 100).toFixed(1);
+
+            document.getElementById('finalScore').textContent = `${correctAnswers}/${totalQuestions}`;
+            document.getElementById('totalQ').textContent = totalQuestions;
+            document.getElementById('correctA').textContent = correctAnswers;
+            document.getElementById('wrongA').textContent = wrongAnswers;
+            document.getElementById('percentage').textContent = percentage;
+
+            let message = '';
+            if (percentage >= 90) {
+                message = 'Excellent! Outstanding performance! 🌟';
+            } else if (percentage >= 75) {
+                message = 'Great job! You did very well! 👏';
+            } else if (percentage >= 60) {
+                message = 'Good effort! Keep learning! 📚';
+            } else {
+                message = 'Keep practicing! You can do better! 💪';
+            }
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            scoreCount = 0;
+            shouldShuffle = false;
+            activeQuizData = [];
+
+            document.getElementById('quizContent').style.display = 'none';
+            document.querySelector('.navigation').style.display = 'none';
+            document.getElementById('progressContainer').style.display = 'none';
+            document.getElementById('resultScreen').classList.remove('active');
+            document.getElementById('startScreen').classList.add('active');
+            document.getElementById('startScreen').style.display = 'flex';
+            document.getElementById('shuffleCheckbox').textContent = '';
+            document.getElementById('shuffleOption').classList.remove('selected');
+        }
+    </script>
+</body>
+
+</html>
