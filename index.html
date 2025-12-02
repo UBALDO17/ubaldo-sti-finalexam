@@ -1377,6 +1377,14 @@
             // Show shuffle option and start button
             document.getElementById('shuffleOption').style.display = 'flex';
             document.getElementById('startBtn').style.display = 'block';
+
+            // Scroll to shuffle option and start button
+            setTimeout(() => {
+                document.getElementById('shuffleOption').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }, 100);
         }
 
         function toggleShuffle() {
@@ -1808,4 +1816,3 @@
 </body>
 
 </html>
-
