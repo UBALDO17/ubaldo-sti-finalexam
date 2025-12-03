@@ -2192,14 +2192,19 @@
 
             prevBtn.disabled = currentQuestionIndex === 0;
 
+            // Disable next button if current question is not answered
+            const isCurrentQuestionAnswered = userAnswers[currentQuestionIndex] !== undefined;
+
             if (currentQuestionIndex === activeQuizData.length - 1) {
                 // Change button appearance based on completion
                 const unansweredCount = activeQuizData.length - userAnswers.filter(a => a).length;
                 nextBtn.textContent = unansweredCount > 0 ? `Finish (${unansweredCount} unanswered)` : 'Finish';
-                nextBtn.style.opacity = unansweredCount > 0 ? '0.7' : '1';
+                nextBtn.disabled = !isCurrentQuestionAnswered;
+                nextBtn.style.opacity = !isCurrentQuestionAnswered ? '0.5' : (unansweredCount > 0 ? '0.7' : '1');
             } else {
                 nextBtn.textContent = 'Next';
-                nextBtn.style.opacity = '1';
+                nextBtn.disabled = !isCurrentQuestionAnswered;
+                nextBtn.style.opacity = !isCurrentQuestionAnswered ? '0.5' : '1';
             }
         }
 
@@ -2233,6 +2238,11 @@
         }
 
         function nextQuestion() {
+            // Check if current question is answered
+            if (!userAnswers[currentQuestionIndex]) {
+                return; // Don't proceed if not answered
+            }
+
             if (currentQuestionIndex < activeQuizData.length - 1) {
                 currentQuestionIndex++;
                 loadQuestion();
