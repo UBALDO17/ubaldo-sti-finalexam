@@ -876,6 +876,44 @@
         .modal-content>div:first-child button:hover {
             background: #f0f0f0;
         }
+
+        .question-text table {
+            border-collapse: collapse;
+            margin: 20px auto;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-text th {
+            border: 1px solid #ddd;
+            padding: 12px;
+            background-color: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+
+        .question-text td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .question-text tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Dark mode support */
+        body.dark-mode .question-text th {
+            background-color: #16213e;
+        }
+
+        body.dark-mode .question-text td {
+            border-color: #444;
+            color: #e4e4e4;
+        }
+
+        body.dark-mode .question-text tbody tr:nth-child(even) {
+            background-color: #1a1a2e;
+        }
     </style>
 </head>
 
@@ -915,7 +953,7 @@
                 <div class="subject-card" onclick="selectSubject('math')">
                     <div class="subject-icon">📐</div>
                     <div class="subject-name">MATH</div>
-                    <div class="subject-count">Coming soon</div>
+                    <div class="subject-count">138 Questions</div>
                 </div>
 
                 <div class="subject-card" onclick="selectSubject('rph')">
@@ -1332,7 +1370,290 @@
         ];
 
         const mathQuestions = [
-            { q: "No available questions yet.", choices: ["Sorry"], answer: "A" }
+            { q: "Which of the following is an example of a mathematical expression?", choices: ["12", "2+5=7", "Mathematics", "Zero"], answer: "A" },
+
+            { q: "What is the other name for logical connective?", choices: ["Logical Fallacies", "Logical Thinking", "Logical Operator", "Logical Reasoning"], answer: "C" },
+
+            { q: "What do you call the symbol or word that is used to connect two (2) or more sentences?", choices: ["Elementary Logic", "Logical Connective", "Negation", "Variable"], answer: "B" },
+
+            { q: "What is the meaning of the symbol π?", choices: ["Degrees", "Infinity", "Pi", "Therefore"], answer: "C" },
+
+            { q: "What are the three (3) characteristics of the language of mathematics?", choices: ["Concise, precise, and powerful", "Concise, precise, and meaningful", "Complete, meaningful, and powerful", "Precise, powerful, and meaningful"], answer: "A" },
+
+            { q: "What is an arrangement of lines or shapes in which the same shape is repeated at regular intervals over a surface?", choices: ["Art", "Pattern", "Sequence", "Symbol"], answer: "B" },
+
+            { q: "Which application of math is used to design and develop new components or products, maintain operating components, model real-life situations for testing and learning purposes, as well as build and maintain structures?", choices: ["Engineering", "Finance and Business", "Media", "Technology"], answer: "A" },
+
+            { q: "Which of the following is a complex system of words and symbols, either spoken or written, used by a particular community as a means of communication?", choices: ["English", "Dialect", "Grammar", "Language"], answer: "D" },
+
+            { q: "Which type of pattern has reflection like mirror images?", choices: ["Fractal", "Spiral", "Symmetry", "Tessellations"], answer: "C" },
+
+            { q: "Which type of pattern has the never-ending patterns that repeat indefinitely as the pattern is iterated on an infinitely smaller scale?", choices: ["Fractal", "Spiral", "Symmetry", "Tessellations"], answer: "A" },
+
+            { q: "What is a name given to a mathematical object of interest?", choices: ["Expression", "Noun", "Sentence", "Symbol"], answer: "A" },
+
+            { q: "Which application of math is used to know the speed of light to work GPS devices?", choices: ["Engineering", "Finance and Business", "Media", "Technology"], answer: "D" },
+
+            { q: "Which application of math is used for profitable operations and accurate record keeping?", choices: ["Engineering", "Finance and Business", "Media", "Technology"], answer: "B" },
+
+            { q: "Which of these refers directly to a mathematical object of interest?", choices: ["Noun", "Expression", "Sentence", "Paragraph"], answer: "B" },
+
+            { q: "Which of the following is a compound sentence formed by using the word and to join two (2) simple sentences?", choices: ["Conjunction", "Disjunction", "Implication", "Negation"], answer: "A" },
+
+            { q: "Which of the following statements is a conjunction?", choices: ["p + q", "p → q", "p ∧ q", "p ∨ q"], answer: "C" },
+
+            { q: "Which classification does book belong to?", choices: ["English noun", "English sentence", "Mathematical expression", "Mathematical sentence"], answer: "A" },
+
+            { q: "An apple sliced in half, a butterfly, and a pair of hands show what type of pattern?", choices: ["Fibonacci", "Fractal", "Symmetry", "Tessellation"], answer: "C" },
+
+            { q: "Which application of math is used for pharmacy and medicine?", choices: ["Engineering", "Finance and Business", "Media", "Medicine and Health"], answer: "D" },
+
+            { q: "Which classification does x + 2 belong to?", choices: ["English noun", "English sentence", "Mathematical expression", "Mathematical sentence"], answer: "C" },
+
+            { q: "Which of the following statements is a disjunction?", choices: ["p + q", "p → q", "p ∧ q", "p ∨ q"], answer: "D" },
+
+            { q: "In what kind of flower does Fibonacci pattern occur?", choices: ["Daisy", "Orchid", "Sunflower", "Tulip"], answer: "C" },
+
+            { q: "Which application of math is used for loans, interest, and mortgages?", choices: ["Finance and Business", "Media", "Medicine and Health", "Technology"], answer: "A" },
+
+            { q: "The statement “It is raining outside or I study for Math” is an example of which logical connective?", choices: ["Conjunction", "Disjunction", "Implication", "Negation"], answer: "B" },
+
+            { q: "Which of the following is an example of tessellation pattern?", choices: ["Apple", "Honeycomb", "Shell", "Tree"], answer: "B" },
+
+            { q: "December is classified as which of the following?", choices: ["English noun", "English sentence", "Mathematical expression", "Mathematical sentence"], answer: "A" },
+
+            { q: "Which application of math is used for making music?", choices: ["Architecture", "Data Science", "Media", "Meteorology"], answer: "C" },
+
+            { q: "Which of the following fruits has a tessellation pattern?", choices: ["Banana", "Mango", "Pineapple", "Watermelon"], answer: "C" },
+
+            { q: "The statement “She is not happy” is an example of which logical connective?", choices: ["Conjunction", "Disjunction", "Implication", "Negation"], answer: "D" },
+
+            { q: "What is the negation of “Angel rides the bus”?", choices: ["Angel does not like to ride the bus.", "Angel does not ride the bus.", "Angel likes to ride the bus.", "Angel does not like bus."], answer: "B" },
+
+            { q: "What is the next number in the following Fibonacci sequence: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, ___ ?", choices: ["69", "76", "89", "97"], answer: "C" },
+
+            { q: "Which of the following is an example of Fractal pattern?", choices: ["Lightning", "Lemon", "Dragonfly", "Milky Way Galaxy"], answer: "A" },
+
+            { q: "Given p: Linda loves her father and q: Linda keeps her father’s commands, what is p ⇒ q?", choices: ["Linda loves her father or keeps his commands.", "Linda loves her father and keeps his commands.", "If Linda keeps her father’s commands, she loves her father.", "If Linda loves her father, she keeps his commands."], answer: "D" },
+
+            { q: "Given p: Corazon follows the truth and q: Corazon suffers the consequences, what is the statement formed when p and q are joined in a disjunction?", choices: ["If Corazon suffers the consequences, then she does not follow the truth.", "Either Corazon follows the truth or she suffers the consequences.", "Corazon does not follow the truth and she suffers the consequences.", "None of these"], answer: "B" },
+
+            { q: "Suppose the fifth element of a Fibonacci pattern is 5, and the fourth element is 3. To which number is the third element equal to?", choices: ["2", "4", "8", "16"], answer: "A" },
+
+            { q: "What is the next number in the sequence 56, 63, 72, 83?", choices: ["90", "93", "95", "96"], answer: "D" },
+
+            { q: "What is the next number in the sequence 99, 86, 73, 60?", choices: ["47", "50", "56", "59"], answer: "A" },
+
+            { q: "Which of the following enables you to find any term of a sequence without having to go up from one (1) term to the next?", choices: ["Nth-term formula for a sequence", "Arithmetic sequence", "Nth-term formula for a series", "Mathematical induction"], answer: "A" },
+
+            { q: "What is the next number in the sequence 79, 69, 60, 52, 45, 39?", choices: ["32", "33", "34", "35"], answer: "C" },
+
+            { q: "What is the first step in Polya’s Problem Solving Strategy?", choices: ["Carry out the plan", "Devise a plan", "Review the solution", "Understand the problem"], answer: "D" },
+
+            { q: "What do you call the process of reaching a general conclusion by examining specific examples?", choices: ["Inductive reasoning", "Deductive reasoning", "Conjecture", "Logic puzzles"], answer: "A" },
+
+            { q: "Under which of these steps does accurate and neat record-keeping fall?", choices: ["Carrying out the plan", "Revising the plan", "Reviewing the solution", "Understanding the problem"], answer: "A" },
+
+            { q: "Which is the third step in Polya’s Problem Solving Strategy?", choices: ["Carry out the plan", "Devise a plan", "Review the solution", "Understand the problem"], answer: "A" },
+
+            { q: "The formula for finding the nth term is dn ± (a – d). What does the variable a stand for?", choices: ["Difference between terms", "Deducted terms", "Dependent terms", "Dividing the first and last term"], answer: "A" },
+
+            { q: "Which of these is the second step in Polya’s Problem Solving Strategy?", choices: ["Carry out the plan", "Devise a plan", "Review the solution", "Understand the problem"], answer: "B" },
+
+            { q: "What is the next number in the sequence 1, 4, 9, 16, 25, 36?", choices: ["44", "47", "49", "51"], answer: "C" },
+
+            { q: "What do you call an ordered list of numbers such as 1, 5, 12, 22, 35…?", choices: ["Sequence", "Series", "Progression", "Mathematical induction"], answer: "A" },
+
+            { q: "Which of the following represents the first term of a sequence?", choices: ["1", "a₁", "1a", "aₙ"], answer: "B" },
+
+            { q: "What do you call the conclusion formed based on the examination of specific examples?", choices: ["Inductive reasoning", "Deductive reasoning", "Conjecture", "Logic puzzles"], answer: "C" },
+
+            { q: "What is the next number in the sequence 10, 12, 17, 21, 19, 24?", choices: ["26", "28", "30", "32"], answer: "A" },
+
+            { q: "Which step in Polya’s Problem Solving Strategy answers the question “Is there an extraneous problem?”", choices: ["Carry out the plan", "Revise the plan", "Review the solution", "Understand the problem"], answer: "D" },
+
+            { q: "Which of the following is an example of inductive reasoning?", choices: ["The chair in the living room is red. The chair in the dining room is red. The chair in the bedroom is red. Therefore, all chairs in the house are red.", "Mariella is taking Mathematics in the Modern World. Mariella is a first year college student in the new curriculum. Therefore, Mariella takes Mathematics in the Modern World.", "All household owners pay electric bills. Enrico is a household owner. Therefore, Enrico pays electric bills.", "All men are mortal. Senator Charles is a man. Therefore, Charles is mortal."], answer: "A" },
+
+            { q: "In the sequence 2, 4, 8, 16, __, which of these is the 6th term of the sequence?", choices: ["12", "32", "64", "124"], answer: "C" },
+
+            { q: "Which of the following is an example of deductive reasoning?", choices: ["All Filipinos eat rice. Ronnie is a Filipino. Therefore, Ronnie eats rice.", "The teacher uses PowerPoint in the last four classes. Therefore, the teacher will use PowerPoint tomorrow.", "Jay is a grandfather. Jay is bald. Therefore, all grandfathers are bald.", "Mico is a first year college student. Mico is a male. Therefore, all first year college students are males."], answer: "A" },
+
+            { q: "Which step in Polya’s Problem Solving Strategy keeps an accurate and neat record of all your attempts?", choices: ["Carry out the plan", "Devise a plan", "Review the solution", "Understand the problem"], answer: "A" },
+
+            { q: "What is the 5th term in the sequence 7, 4, -2, -5, -8?", choices: ["-11", "-17", "-19", "-13"], answer: "A" },
+
+            { q: "Which step in Polya’s Problem Solving Strategy requires you to work carefully?", choices: ["Carry out the plan", "Devise a plan", "Review the solution", "Understand the problem"], answer: "A" },
+
+            { q: "What is the next number in the sequence 3/4, 4/7, 5/10, 6/13, 7/16?", choices: ["8/19", "13/19", "17/18", "17/21"], answer: "A" },
+
+            { q: "What is the 23rd term in the sequence 2, 4, 6, 8, 10, 12?", choices: ["30", "34", "40", "46"], answer: "D" },
+
+            { q: "What is the next number in the sequence 2/4, 4/7, 6/10, 8/13, 10/16?", choices: ["12/19", "13/19", "17/18", "17/21"], answer: "A" },
+
+            { q: "What is the nth term in the sequence 2, 4, 6, 8, 10, 12?", choices: ["2n + 1", "2n + 2", "2n", "2n + 2"], answer: "C" },
+
+            { q: "What is the 25th term in the sequence 1, 4, 7, 10, 13, 32, 16?", choices: ["70", "73", "77", "81"], answer: "B" },
+
+            { q: "What is the 16th term in the sequence 7, 11, 15, 19, 33, 16, 19?", choices: ["59", "64", "67", "71"], answer: "C" },
+
+            { q: "What is the 20th term in the sequence 4, 7, 10, 13, 16, 19?", choices: ["61", "59", "55", "67"], answer: "A" },
+
+            { q: "Which step in Polya’s Problem Solving Strategy answers the question “What is the goal?”", choices: ["Carry out the plan", "Devise a plan", "Review the solution", "Understand the problem"], answer: "D" },
+
+            { q: "Which expression represents the sum of the first 100 natural numbers?", choices: ["1 + 2 + 3 + … + 98 + 99 + 100", "1 + 2 + … + 99 + 100", "1 + 2 + 3 + 4 + … + 99 + 100", "All of these"], answer: "D" },
+
+            { q: "What is the nth term in the sequence 25, 21, 17, 13, 9, 5?", choices: ["8 + 18n", "29 – 4n", "13 – 16n", "27 + 10n"], answer: "B" },
+
+            { q: "Which sequence could be represented by the formula 11n – 8? Where is the nth term?", choices: ["11, 16, 21, 36, 41, …", "3, 6, 7, 12, 22, …", "1, 2, 3, 4, 5, …", "13, 24, 35, 36, 47, …"], answer: "D" },
+
+            {
+                q: "From the given data below, what is the length of the pendulum if its period is nine (9) heartbeats?<br><br><table style='border-collapse: collapse; margin: 20px auto;'><thead><tr><th style='border: 1px solid #ddd; padding: 8px; background-color: #667eea; color: white;'>Length of Pendulum (units)</th><th style='border: 1px solid #ddd; padding: 8px; background-color: #667eea; color: white;'>Period (heartbeats)</th></tr></thead><tbody><tr><td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>1</td><td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>1</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>4</td><td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>2</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>9</td><td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>3</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>16</td><td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>4</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>25</td><td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>5</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>36</td><td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>6</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>:</td><td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>:</td></tr></tbody></table>",
+                choices: ["49 units", "84 units", "81 units", "100 units"],
+                answer: "C"
+            },
+
+            { q: "What is the nth term in the sequence 4, 14, 24, 34, 44, 54?", choices: ["8n – 1", "9n + 2", "10n – 6", "6n + 10"], answer: "C" },
+
+            { q: "Which of the following is concerned with 'looking after' and processing data?", choices: ["Data management", "Data planning", "Information management", "Analysis method"], answer: "A" },
+
+            { q: "Which chi-square test compares two (2) variables in a contingency table to see if they are related?", choices: ["Goodness of fit test", "Test of independence", "Correlation coefficient", "Regression"], answer: "B" },
+
+            { q: "Which of the following imitation pills is identical to an actual treatment pill but has no treatment ingredients?", choices: ["Confounding", "Placebo", "Binding", "Blocking"], answer: "B" },
+
+            { q: "Which of the following is performed when all measurements, observations, or data collected are subject to variation, as there are no completely deterministic processes?", choices: ["Experimental units", "Control groups", "Random assignments", "Replication"], answer: "D" },
+
+            { q: "Which method of data collection is performed when there are some controlled variables and the intention is to study their effect on other observed variables?", choices: ["Census", "Sample survey", "Experiment", "Observation study"], answer: "C" },
+
+            { q: "Which method of data collection has a procedure of systematically acquiring and recording information about all members of a given population?", choices: ["Census", "Sample survey", "Experiment", "Observation study"], answer: "A" },
+
+            { q: "Which probability sampling is performed when there are two (2) samples in which the members are clearly paired or matched explicitly by the researcher?", choices: ["Simple random sampling", "Systematic sampling", "Stratified sampling", "Matched random sampling"], answer: "D" },
+
+            { q: "Which probability sampling is performed by choosing respondents from certain areas or certain time periods only?", choices: ["Simple random sampling", "Systematic sampling", "Stratified sampling", "Cluster sampling"], answer: "D" },
+
+            { q: "What is the raw information or facts that become useful when organized in a meaningful way?", choices: ["Study", "Data", "Article", "Information"], answer: "B" },
+
+            { q: "Which method of data collection is a selection of a subset within a population, to yield some knowledge about the population of concern?", choices: ["Census", "Sample survey", "Experiment", "Observation study"], answer: "B" },
+
+            { q: "Which nonprobability sampling is performed when judgment is used to select subjects based on specified proportions?", choices: ["Quota sampling", "Convenience sampling", "Bias sampling", "Source sampling"], answer: "A" },
+
+            { q: "Which probability sampling is performed when the population embraces a number of distinct categories, and the frame can be organized by these categories into separate strata?", choices: ["Simple random sampling", "Systematic sampling", "Stratified sampling", "Matched random sampling"], answer: "C" },
+
+            { q: "Which variable is used to represent chi-square test statistic?", choices: ["k", "E", "O", "x²"], answer: "D" },
+
+            { q: "What do you call a list of items or people forming a population from which a sample is taken?", choices: ["Sampling frame", "Sampling population", "Sampling unit", "Sample size"], answer: "A" },
+
+            { q: "Which of the following is an extraneous variable in a statistical model that correlates (positively or negatively) with both the dependent and the independent variables?", choices: ["Confounding", "Placebo", "Binding", "Blocking"], answer: "A" },
+
+            { q: "Which probability sampling is performed when the researcher selects 25 first-year students from one (1) course from a school that has a 5,000 student population?", choices: ["Matched random sampling", "Systematic sampling", "Stratified sampling", "Cluster sampling"], answer: "D" },
+
+            { q: "Which sampling method is used when the researcher wants to measure the milk yields of cows before and after being fed a particular diet?", choices: ["Matched random sampling", "Probability sampling", "Nonprobability sampling", "Systematic sampling"], answer: "A" },
+
+            { q: "What is the advantage of sampling?", choices: ["The cost is lower.", "Data collection is faster.", "Possible to improve the accuracy and quality of the data.", "All of the above"], answer: "D" },
+
+            { q: "What is the null hypothesis if the alternative hypothesis is 'the data that are not consistent with a specified distribution'?", choices: ["The null hypothesis is true.", "The data are consistent with a specified distribution.", "The data with a specified distribution are dependent.", "The data with a specified distribution are independent."], answer: "D" },
+
+            { q: "Which sampling method is performed when the researcher chooses respondents who are easy to find and willing to communicate with him/her?", choices: ["Random sampling", "Probability sampling", "Nonprobability sampling", "Systematic sampling"], answer: "C" },
+
+            { q: "What are the two (2) reasons why researchers rarely survey the entire population?", choices: ["The cost is too high, and the population is dynamic.", "The population is not cooperative and time-consuming.", "It is time-consuming and the cost is too high.", "The population is not cooperative, and the cost is too high."], answer: "A" },
+
+            { q: "What is the alternative hypothesis if the null hypothesis is 'the population frequencies are equal to the expected frequencies'?", choices: ["The null hypothesis is true.", "The population frequencies are not equal to the expected frequencies.", "The population frequencies are less than the expected frequencies.", "The population frequencies are greater than the expected frequencies."], answer: "D" },
+
+            { q: "What is the degrees of freedom in a test of independence if the column is 9 and the row is 7?", choices: ["42", "48", "56", "63"], answer: "B" },
+
+            { q: "Which of the following is NOT a characteristic of a well-designed and well-conducted survey?", choices: ["A good survey must be representative of the population.", "It always incorporates a chance, such as a random number generator.", "The wording of the question must be biased.", "Possible sources of errors and biases should be controlled."], answer: "C" },
+
+            { q: "Which of the following is a characteristic of a good statistical experiment?", choices: ["Examining the data set in secondary analyses to suggest old hypotheses for future study.", "Stating the purpose of research, including estimates regarding the size of treatment effects, alternative hypotheses, and estimated experimental variability.", "Designing of experiments using confounding and randomized assignment of treatments to subjects.", "None of the above"], answer: "B" },
+
+            { q: "Which of the following is an importance of data management?", choices: ["It ensures that the data for analysis are of high quality so that conclusions are correct.", "Good data management allows further use of the data in the future and enables efficient integration of results with other studies.", "Good data management leads to improved processing efficiency, quality, and meaningfulness of data.", "All of the above"], answer: "D" },
+
+            { q: "Which planning and experimenting explores the correlation between smoking and lung cancer?", choices: ["Census", "Sample survey", "Experiment", "Observation study"], answer: "D" },
+
+            { q: "What is the first step in solving goodness of fit test?", choices: ["Test statistic is calculated.", "The observed frequencies are calculated from the sample.", "The expected frequencies are obtained from probability theory.", "A hypothesis test is performed."], answer: "B" },
+
+            { q: "Which sampling method is used when the researcher chooses pairs of identical twins as respondents?", choices: ["Matched random sampling", "Probability sampling", "Nonprobability sampling", "Systematic sampling"], answer: "A" },
+
+            { q: "Which probability sampling is performed when the researcher selects every 10th name of the telephone directory?", choices: ["Matched random sampling", "Systematic sampling", "Stratified sampling", "Cluster sampling"], answer: "B" },
+
+            { q: "Which sampling method is used when the researcher wants to study the before and after weight journey of particular respondents?", choices: ["Matched random sampling", "Systematic sampling", "Stratified sampling", "Cluster sampling"], answer: "A" },
+
+            { q: "Which sampling method is observed when a team of researchers visits every household in a given street and interviews the first person to answer the door?", choices: ["Stratified sampling", "Systematic sampling", "Simple random sampling", "Nonprobability sampling"], answer: "D" },
+
+            {
+                q: "In the table below, which of these equals the chi-square test statistic?<br><br><table><thead><tr><th>RESPONSE</th><th>(O-E)/E</th></tr></thead><tbody><tr><td>A</td><td>9.80</td></tr><tr><td>B</td><td>1.15</td></tr><tr><td>C</td><td>7.00</td></tr></tbody></table>",
+                choices: ["17.05", "17.95", "18.87", "19.53"],
+                answer: "B"
+            },
+
+            { q: "Which probability sampling is performed when the researcher chooses a starting point in a city to survey?", choices: ["Matched random sampling", "Systematic sampling", "Stratified sampling", "Cluster sampling"], answer: "B" },
+
+            { q: "In an experiment, the population is grouped into nine (9) categories. Which of these will be the degrees of freedom if a chi-square goodness-of-fit test is performed on this experiment?", choices: ["10", "9", "8", "7"], answer: "C" },
+
+            { q: "It refers to a fixed percentage of the principal", choices: ["Simple Interest", "Rate", "Time", "Principal"], answer: "A" },
+
+            { q: "Gee owns shares of stocks in a corporation. Where does he belong?", choices: ["Lender", "Stakeholder", "Stock", "Borrower"], answer: "B" },
+
+            { q: "What is the formula for the total number of conversion periods?", choices: ["n=tm", "t=nm", "I=prt", "F=P(1+i)"], answer: "A" },
+
+            { q: "This is the actual number of days between two dates.", choices: ["Approximate time", "Actual time", "Exact interest", "Ordinary interest"], answer: "B" },
+
+            { q: "This method considers that there are 30 days in each month or 360 days in one year. Which of the following it refers to?", choices: ["Approximate time", "Actual time", "Exact interest", "Ordinary interest"], answer: "A" },
+
+            { q: "It is denoted by Ie, an interest computed based on 365 days.", choices: ["Approximate time", "Actual time", "Exact interest", "Ordinary interest"], answer: "C" },
+
+            { q: "It is denoted by Io, a type of interest computed based on 360 days.", choices: ["Approximate time", "Actual time", "Exact interest", "Ordinary interest"], answer: "D" },
+
+            { q: "A type of interest that is computed on the sum of the original principal of a deposit or loan and the interest accumulated, denoted by Ic.", choices: ["Approximate time", "Compound Amount", "Exact interest", "Compound Interest"], answer: "D" },
+
+            { q: "It refers to a sum of money at the present time.", choices: ["Present Value", "Compound Amount", "Exact interest", "Compound Interest"], answer: "A" },
+
+            { q: "It refers to a type of security that signifies ownership in a corporation and represents a claim on part of the corporation’s assets and earnings.", choices: ["Bonds", "Stock", "Amount", "Interest"], answer: "B" },
+
+            { q: "Marketplaces where stocks in the Philippines are being traded regularly.", choices: ["SM & SM Supermarket", "PSE & MSE", "Watsons and Generic", "MOA and Del Monte"], answer: "B" },
+
+            { q: "A certificate or written document in which the debtor promises to pay.", choices: ["Bonds", "Stock", "Amount", "Interest"], answer: "A" },
+
+            { q: "What is the term used to describe the distribution of a company’s profit to its stakeholders?", choices: ["Bonds", "Stock", "Dividends", "Interest"], answer: "C" },
+
+            { q: "It refers to the price the investor pays when buying the bond from the issuing company.", choices: ["Mickey Mouse Money", "Stock", "Dividends", "Par Value"], answer: "D" },
+
+            { q: "If MMDN Corporation paid a dividend of 142.60 per share last year and yesterday’s last price was 2,300, what is the current yield on the stock?", choices: ["6.2%", "5.2%", "0.062%", "0.062"], answer: "A" },
+
+            { q: "Calculate the current yield for MDDN Corporation stock, which pays a dividend of 70 per year and is currently selling at 1400 per share.", choices: ["6.2%", "5%", "0.5%", "0.05"], answer: "B" },
+
+            { q: "WSS Inc. is currently selling for 2,685 per share. If the company had earnings per share of 89.50 in the past year, what is the price-earnings ratio for WSS?", choices: ["30 or 30:1", "30", "40 or 40:1", "40"], answer: "A" },
+
+            { q: "The AUS Enterprises has 1,500,000 shares of common stock outstanding. If a dividend of 30,000,000 was declared by the company directors last year, what are the dividends per share of common stock?", choices: ["40", "20", "30", "20%"], answer: "B" },
+
+            { q: "If 1,500 was borrowed at 8% simple interest, how much will the interest be for two years?", choices: ["240", "260", "350", "1500"], answer: "A" },
+
+            { q: "Find the simple interest on ₱5,000 at 6% for 2 years.", choices: ["600", "670", "700", "500"], answer: "A" },
+
+            { q: "How much interest will ₱12,500 earn at 4% in 3 years?", choices: ["1500", "180", "1700", "1500.7"], answer: "A" },
+
+            { q: "A principal of ₱8,000 earns ₱1,600 interest in 4 years. What is the rate?", choices: ["5%", "7%", "4%", "8%"], answer: "A" },
+
+            { q: "How long will it take ₱10,000 to earn ₱3,000 at 10% simple interest?", choices: ["3 years", "5 years", "1.5 years", "3.5 years"], answer: "A" },
+
+            { q: "A loan charges 5% simple interest. If the time is 1.5 years and the interest is ₱750, what is the principal?", choices: ["10,000", "11,000", "20,000", "10,500"], answer: "A" },
+
+            { q: "How much time is required for ₱9,000 to earn ₱1,350 at 5% simple interest?", choices: ["4 years", "3 years", "5 years", "6 years"], answer: "B" },
+
+            { q: "What is the simple interest on ₱15,000 at 3% for 10 months?", choices: ["365", "375", "385", "376"], answer: "B" },
+
+            { q: "A person invests ₱20,000 at 7%. How much interest will it earn in 2 years?", choices: ["2,800", "2,700", "2,900", "3000"], answer: "A" },
+
+            { q: "A principal earns ₱2,250 interest after 3 years at 5%. What is the principal?", choices: ["16,000", "17,900", "15,000", "20,000"], answer: "C" },
+
+            { q: "At what rate was money invested if ₱4,500 grew by ₱1,125 in 5 years?", choices: ["6%", "7%", "0.05%", "5%"], answer: "D" },
+
+            { q: "Find the interest on 28,700 at 7.3% from March 14, 2016 to August 16, 2016 using ordinary interest with actual time.", choices: ["902.06", "884.60", "889.70", "872.48"], answer: "A" },
+
+            { q: "Find the interest on 28,700 at 7.3% from March 14, 2016 to August 16, 2016 using ordinary interest with approximate time.", choices: ["902.06", "884.60", "889.70", "872.48"], answer: "B" },
+
+            { q: "Find the interest on 28,700 at 7.3% from March 14, 2016 to August 16, 2016 using exact interest with approximate time.", choices: ["902.06", "884.60", "889.78", "872.48"], answer: "D" },
+
+            { q: "Find the interest on 28,700 at 7.3% from March 14, 2016 to August 16, 2016 using exact interest with actual time.", choices: ["902.06", "884.60", "889.70", "872.48"], answer: "C" },
+
         ];
 
         const rphQuestions = [
@@ -2067,7 +2388,7 @@
             const feedbackEl = document.getElementById('feedback');
 
             questionNumberEl.textContent = `Question ${currentQuestionIndex + 1} of ${activeQuizData.length}`;
-            questionTextEl.textContent = question.q;
+            questionTextEl.innerHTML = question.q;
 
             choicesEl.innerHTML = '';
             feedbackEl.classList.remove('show', 'correct', 'wrong');
